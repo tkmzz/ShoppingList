@@ -2,8 +2,8 @@
 //  ViewController.swift
 //  ShoppingList
 //
-//  Created by Eric Brito on 23/03/19.
-//  Copyright © 2019 FIAP. All rights reserved.
+//  Created by Luiz Monteiro on 23/03/19.
+//  Copyright © 2019 Luiz Monteiro. All rights reserved.
 //
 
 import UIKit
@@ -21,8 +21,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         handle = Auth.auth().addStateDidChangeListener({ (auth, user) in
-            print("Usuário logado: ", user?.email)
             if let user = user {
+                print("Usuário logado: ", user.email ?? "")
                 self.showMainScreen(user: user, animated: false)
             }
         })
@@ -49,10 +49,17 @@ class ViewController: UIViewController {
             self.showMainScreen(user: user, animated: true)
         }
     }
+    
+    func removeListener(){
+        
+        if let handle = handle {
+            Auth.auth().removeStateDidChangeListener(handle)
+        }
+    }
 
     @IBAction func login(_ sender: Any) {
     
-        handle = nil
+        removeListener()
         Auth.auth().signIn(withEmail: tfEmail.text!, password: tfPassword.text!) { (result, error) in
             if error == nil {
                 self.performUserChange(user: result?.user)
@@ -65,6 +72,7 @@ class ViewController: UIViewController {
     
     @IBAction func signup(_ sender: Any) {
         
+        removeListener()
         Auth.auth().createUser(withEmail: tfEmail.text!, password: tfPassword.text!) { (result, error) in
             if error == nil {
                 self.performUserChange(user: result?.user)

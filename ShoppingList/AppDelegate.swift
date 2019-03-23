@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  ShoppingList
 //
-//  Created by Eric Brito on 23/03/19.
-//  Copyright © 2019 FIAP. All rights reserved.
+//  Created by Luiz Monteiro on 23/03/19.
+//  Copyright © 2019 Luiz Monteiro. All rights reserved.
 //
 
 import UIKit
